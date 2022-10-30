@@ -14,20 +14,25 @@
             <h1>{{ title }}</h1>
             <div class="form-control">
                 <input type="text"
-                v-bind:placeholder='placeholderString'
-                v-bind:value='inputValue'
-                v-on:input='inputChangeHandler'
-                v-on:keypress.enter="addNewNote"
+                :placeholder='placeholderString'
+                :value='inputValue'
+                @input='inputChangeHandler'
+                @keypress.enter="addNewNote"
                 />
             </div>
             <button class="btn" v-on:click="addNewNote">Добавить</button>
                 <hr />
-                <ul class="list">
+                <ul class="list" v-if="notes.length !== 0">
                     <li class="list-item" v-for="(note, idx) in notes">
-                      ({{ idx + 1 }}){{ note }}
-                      <button class="btn danger" v-on:click="deleteNote(idx)">удалить</button>
+                      ({{ idx + 1 }}){{ toUpperCase(note) }}
+                      <button class="btn danger" @click="deleteNote(idx)">удалить</button>
+                    </li>
+                    <hr/>
+                    <li>
+                       <strong>Общее колличество: {{ notes.length }}</strong>
                     </li>
                 </ul>
+                <div v-else>Заметок пока нет. Добавьте новые.</div>
         </div>
     </div>
 
